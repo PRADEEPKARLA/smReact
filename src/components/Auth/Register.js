@@ -319,12 +319,161 @@
 
 // src/components/Auth/Register.js
 
+// import React, { useState } from 'react';
+// import { useNavigate, Link } from 'react-router-dom';
+// import './logreg.css';
+
+// const Register = () => {
+//   const [username, setUsername] = useState('');
+//   const [password, setPassword] = useState('');
+//   const navigate = useNavigate();
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     try {
+//       const res = await fetch('http://localhost:5000/api/auth/register', {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify({ username, password }),
+//       });
+//       const data = await res.json();
+//       if (res.ok) {
+//         alert(data.message);
+//         navigate('/login');
+//       } else {
+//         alert(data.message);
+//       }
+//     } catch (error) {
+//       console.error('Register error:', error);
+//     }
+//   };
+
+//   return (
+//     <section>
+//       {[...Array(100)].map((_, index) => (
+//         <span key={index}></span>
+//       ))}
+//       <div className="auth-container">
+//         <div className="content">
+//           <h2>Register</h2>
+//           <form className="form" onSubmit={handleSubmit}>
+//             <div className="inputBox">
+//               <input
+//                 type="text"
+//                 required
+//                 value={username}
+//                 onChange={(e) => setUsername(e.target.value)}
+//               />
+//               <i>Username</i>
+//             </div>
+//             <div className="inputBox">
+//               <input
+//                 type="password"
+//                 required
+//                 value={password}
+//                 onChange={(e) => setPassword(e.target.value)}
+//               />
+//               <i>Password</i>
+//             </div>
+//             <div className="inputBox">
+//               <input type="submit" value="Register" />
+//             </div>
+//           </form>
+//           <div className="links">
+//             <p>Already have an account? <Link to="/login">Login</Link></p>
+//           </div>
+//         </div>
+//       </div>
+//     </section>
+//   );
+// };
+
+// export default Register;
+
+
+// import React, { useState } from 'react';
+// import { useNavigate, Link } from 'react-router-dom';
+// import './logreg.css';
+
+// const Register = () => {
+//   const [username, setUsername] = useState('');
+//   const [password, setPassword] = useState('');
+//   const navigate = useNavigate();
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     try {
+//       const res = await fetch('http://localhost:5000/api/auth/register', {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify({ username, password }),
+//       });
+//       const data = await res.json();
+//       if (res.ok) {
+//         alert(data.message);
+//         navigate('/login');
+//       } else {
+//         alert(data.message);
+//       }
+//     } catch (error) {
+//       console.error('Register error:', error);
+//     }
+//   };
+
+//   return (
+//     <div className="auth-page">
+//       <section className="auth-section">
+//         {[...Array(100)].map((_, index) => (
+//           <span key={index}></span>
+//         ))}
+//         <div className="auth-container">
+//           <div className="content">
+//             <h2>Register</h2>
+//             <form className="form" onSubmit={handleSubmit}>
+//               <div className="inputBox">
+//                 <input
+//                   type="text"
+//                   placeholder='username'
+//                   required
+//                   value={username}
+//                   onChange={(e) => setUsername(e.target.value)}
+//                 />
+//                 {/* <i>Username</i> */}
+//               </div>
+//               <div className="inputBox">
+//                 <input
+//                   type="password"
+//                    placeholder='password'
+//                   required
+//                   value={password}
+//                   onChange={(e) => setPassword(e.target.value)}
+//                 />
+//                 {/* <i>Password</i> */}
+//               </div>
+//               <div className="inputBox">
+//                 <input type="submit" value="Register" />
+//               </div>
+//             </form>
+//             <div className="links">
+//               <p>Already have an account? <Link to="/login">Login</Link></p>
+//             </div>
+//           </div>
+//         </div>
+//       </section>
+//     </div>
+//   );
+// };
+
+// export default Register;
+
+
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import './logreg.css';
 
 const Register = () => {
   const [username, setUsername] = useState('');
+  const [email, setEmail] = useState(''); // New state for email
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
@@ -334,7 +483,7 @@ const Register = () => {
       const res = await fetch('http://localhost:5000/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ username, email, password }), // Include email in the request body
       });
       const data = await res.json();
       if (res.ok) {
@@ -349,43 +498,55 @@ const Register = () => {
   };
 
   return (
-    <section>
-      {[...Array(100)].map((_, index) => (
-        <span key={index}></span>
-      ))}
-      <div className="auth-container">
-        <div className="content">
-          <h2>Register</h2>
-          <form className="form" onSubmit={handleSubmit}>
-            <div className="inputBox">
-              <input
-                type="text"
-                required
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-              <i>Username</i>
+    <div className="auth-page">
+      <section className="auth-section">
+        {[...Array(100)].map((_, index) => (
+          <span key={index}></span>
+        ))}
+        <div className="auth-container">
+          <div className="content">
+            <h2>Register</h2>
+            <form className="form" onSubmit={handleSubmit}>
+              <div className="inputBox">
+                <input
+                  type="text"
+                  placeholder="username"
+                  required
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+              </div>
+              <div className="inputBox">
+                <input
+                  type="email" // Input type for email
+                  placeholder="email" // Placeholder for email
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+              <div className="inputBox">
+                <input
+                  type="password"
+                  placeholder="password"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+              <div className="inputBox">
+                <input type="submit" value="Register" />
+              </div>
+            </form>
+            <div className="links">
+              <p>Already have an account? <Link to="/login">Login</Link></p>
             </div>
-            <div className="inputBox">
-              <input
-                type="password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <i>Password</i>
-            </div>
-            <div className="inputBox">
-              <input type="submit" value="Register" />
-            </div>
-          </form>
-          <div className="links">
-            <p>Already have an account? <Link to="/login">Login</Link></p>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 };
 
 export default Register;
+
